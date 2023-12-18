@@ -16,6 +16,7 @@ module tb ();
         #1;
     end
 
+	// gjfu
     // wire up the inputs and outputs
     reg  clk;
     reg  rst_n;
