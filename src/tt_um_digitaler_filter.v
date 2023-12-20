@@ -14,6 +14,16 @@ module tt_um_digitaler_filter(
 );
 
 
+    /* verilator lint_off UNUSEDSIGNAL */
+    wire [7:0] z1 = uio_in;
+    wire z2 = ena;
+    /* verilator lint_on UNUSEDSIGNAL */
+    assign uio_out[7:0] = 8'b0;
+    assign uio_oe[7:0] = 8'b0;
+
+
+    
+    
     wire reset = ! rst_n;
     wire [7:0] y;
     wire [7:0] x = ui_in;
@@ -55,5 +65,5 @@ module tt_um_digitaler_filter(
 	    
 	end
    end
-   assign y = (rst_n) ? 8'h00 : sum[15:8];
+   assign y = (reset) ? 8'h00 : sum[15:8];
 endmodule
