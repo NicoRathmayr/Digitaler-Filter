@@ -1,13 +1,23 @@
 `default_nettype none
 `timescale 1ns/1ps
 
-module tt_um_digitaler_filter (
-    input  wire [7:0] x,    // Dedicated inputs - connected to the input switches
-    output wire [7:0] y,   // Dedicated outputs - connected to the 7 segment display
+
+module tt_um_digitaler_filter(
+    input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
+    output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 segment display
+    input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
+    output wire [7:0] uio_out,  // IOs: Bidirectional Output path
+    output wire [7:0] uio_oe,   // IOs: Bidirectional Enable path (active high: 0=input, 1=output)
+    input  wire       ena,      // will go high when the design is enabled
     input  wire       clk,      // clock
-    input  wire       rst_n   // reset_n - low to reset
+    input  wire       rst_n     // reset_n - low to reset
 );
 
+
+    wire reset = ! rst_n;
+    wire [7:0] y;
+    wire [7:0] x = ui_in;
+    assign uo_out[7:0] = y;
 
 
     reg [7:0] h [3:0];// = {8'h06, 8'h1C, 8'h1C, 8'h06};
@@ -16,7 +26,7 @@ module tt_um_digitaler_filter (
     reg [23:0] sum;
     integer i;
     //assign y = (rst_n) ? 8'h00 : sum[15:8];
-    always @(posedge clk or posedge rst_n) begin
+    always @(posedge clk or posedge reset) begin
 	//h <= {8'h06, 8'h1C, 8'h1C, 8'h06};
 	//for (i=0;i<1;i=i+1) begin
             h[0] <= 8'h06;
@@ -24,7 +34,7 @@ module tt_um_digitaler_filter (
 	    h[2] <= 8'h1C;
 	    h[3] <= 8'h06;
 	//end
-    	if (rst_n) begin
+    	if (reset) begin
             sum <= 24'h000000;
 	    product <= 16'h0000;
 	    for (i=0;i<4;i=i+1) begin
