@@ -24,7 +24,7 @@ module tt_um_digitaler_filter(
 
     
     
-    wire reset = ~rst_n;
+    wire reset = ! rst_n;
     wire [7:0] y;
     wire [7:0] x = ui_in;
     assign uo_out[7:0] = y;
@@ -44,7 +44,7 @@ module tt_um_digitaler_filter(
 	    h[2] <= 8'h44;
 	    h[3] <= 8'h3C;
 	//end
-    	if (~reset) begin
+    	if (reset) begin
             sum <= 24'h000000;
 	    product <= 16'h0000;
 	    x_reg[0] <= 8'h00;
@@ -69,5 +69,5 @@ module tt_um_digitaler_filter(
 	    
 	end
    end
-   assign y = (~reset) ? 8'h00 : sum[15:8];
+   assign y = (reset) ? 8'h00 : sum[15:8];
 endmodule
