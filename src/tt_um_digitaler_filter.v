@@ -24,7 +24,7 @@ module tt_um_digitaler_filter(
 
     
     
-    wire reset = ! rst_n;
+    wire reset = rst_n;
     wire [7:0] y;
     wire [7:0] x = ui_in;
     assign uo_out[7:0] = y;
