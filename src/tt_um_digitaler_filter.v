@@ -64,7 +64,7 @@ module tt_um_digitaler_filter(
 		    h[3] <= const_h;
 	    endcase
 
-	    if (counter < 2'b11 && h_start)
+	    if (counter < 2'b11)
 		counter <= counter + 1;
 	    else begin
 		counter <= 2'b00;
