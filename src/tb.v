@@ -45,11 +45,11 @@ filter(
 
 	const_h_i = 8'h01;
 	#2 const_h_i = 8'h02;
-	#2 const_h_i = 8'h03;
-	#2 const_h_i = 8'h04;
+	//#2 const_h_i = 8'h03;
+	//#2 const_h_i = 8'h04;
 
 	#30 x_i = 8'hFF;
-	#2 x_i = 8'h00;
+	#3 x_i = 8'h00;
 
 	#70 $finish;
     end
